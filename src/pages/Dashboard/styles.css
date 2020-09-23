@@ -1,0 +1,9 @@
+#page-dashboard .leaflet-container {
+  width: 100%;
+  height: 460px;
+  border-radius: 8px;
+}
+
+.leaflet-interactive {
+  stroke: #008c3b;
+}
