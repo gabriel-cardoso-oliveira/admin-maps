@@ -8,7 +8,7 @@ import './styles.css';
 export default function Dashboard() {
   const [locations, setLocations] = useState([]);
 
-  const socket = io('http://localhost:3333');
+  const socket = io('https://quantum-balm-274511.uc.r.appspot.com');
 
   useEffect(() => {
     socket.on('locations', location => {

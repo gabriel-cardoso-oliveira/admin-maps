@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3333',
+  baseURL: 'https://quantum-balm-274511.uc.r.appspot.com',
 });
 
 export default api;
