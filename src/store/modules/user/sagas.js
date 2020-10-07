@@ -18,7 +18,6 @@ export function* updateProfile({ payload }) {
 
     toast.success('Perfil atualizado com sucesso!');
   } catch (error) {
-    console.tron.log(error);
     toast.error('Erro ao atualizar Perfil');
   }
 }

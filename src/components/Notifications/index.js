@@ -27,7 +27,6 @@ export default function Notifications() {
           { addSuffix: true, locale: pt }
         ),
       }));
-      console.tron.log(data);
       setNotifications(data);
     }
     loadNotifications();

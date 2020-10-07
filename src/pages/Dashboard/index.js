@@ -8,11 +8,12 @@ import './styles.css';
 export default function Dashboard() {
   const [locations, setLocations] = useState([]);
 
-  const socket = io('https://quantum-balm-274511.uc.r.appspot.com');
+  const socket = io('https://quantum-balm-274511.uc.r.appspot.com', {
+    transports: ['websocket'],
+  });
 
   useEffect(() => {
     socket.on('locations', location => {
-      console.tron.log('LOCATION', location);
       if (location.length) setLocations(location);
     });
   }, [socket]);
