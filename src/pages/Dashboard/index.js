@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Map, TileLayer, Marker, Popup, Circle, Tooltip } from 'react-leaflet';
 import io from 'socket.io-client';
+import api from '~/services/api';
 import { pointCompany } from '~/utils/icons';
 import { Container } from './styles';
 import './styles.css';
@@ -12,11 +13,35 @@ export default function Dashboard() {
     transports: ['websocket'],
   });
 
+  async function getLocations() {
+    const { data, status } = await api.get('users-locations');
+
+    if (status === 200) {
+      setLocations(data);
+    }
+  }
+
   useEffect(() => {
+    getLocations();
+  }, []);
+
+  useEffect(() => {
+    // eslint-disable-next-line consistent-return
     socket.on('locations', location => {
-      if (location.length) setLocations(location);
+      if (Object.keys(location).length) {
+        const index = locations.indexOf(
+          locations.filter(loc => loc.email === location.email)[0]
+        );
+
+        if (index !== -1) {
+          locations.splice(index, 1, location);
+          return setLocations([...locations]);
+        }
+
+        setLocations([...locations, location]);
+      }
     });
-  }, [socket]);
+  }, [locations, socket]);
 
   return (
     <div id="page-dashboard">
@@ -43,7 +68,7 @@ export default function Dashboard() {
           </Circle>
 
           {locations.map(location => (
-            <Marker position={[location.lat, location.lon]}>
+            <Marker position={[location.latitude, location.longitude]}>
               <Popup>{location.name}</Popup>
               <Tooltip direction="bottom" sticky offset={[0, 20]} opacity={1}>
                 {location.name}

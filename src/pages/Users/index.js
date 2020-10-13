@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
+// import Button from '@material-ui/core/Button';
+// import Dialog from '@material-ui/core/Dialog';
+// import DialogActions from '@material-ui/core/DialogActions';
+// import DialogContent from '@material-ui/core/DialogContent';
+// import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogTitle from '@material-ui/core/DialogTitle';
+// import Slide from '@material-ui/core/Slide';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -8,7 +15,13 @@ import api from '~/services/api';
 import { updateProfileRequest } from '~/store/modules/user/actions';
 import { localizationTable } from '~/utils/localizationTable';
 
+// const Transition = React.forwardRef(function Transition(props, ref) {
+//   return <Slide direction="up" ref={ref} {...props} />;
+// });
+
 export default function Users() {
+  // const [openDialog, setOpenDialog] = React.useState(false);
+
   const columns = [
     { title: 'Nome', field: 'name' },
     { title: 'E-mail', field: 'email' },
@@ -69,6 +82,16 @@ export default function Users() {
     };
   }
 
+  // async function handleClickOpen(event, rowData) {
+  //   console.tron.log('EVENT', event);
+  //   console.tron.log('ROWDATA', rowData);
+  //   setOpenDialog(true);
+  // }
+
+  // function handleClose() {
+  //   setOpenDialog(false);
+  // }
+
   return (
     <Container>
       <MaterialTable
@@ -86,12 +109,41 @@ export default function Users() {
             isFreeAction: true,
             onClick: addUser,
           },
+          // {
+          //   icon: 'add_box',
+          //   tooltip: 'Adicionar Usuário',
+          //   onClick: handleClickOpen,
+          // },
         ]}
         editable={{
           onRowUpdate: updateUser,
           onRowDelete: disableUser,
         }}
       />
+
+      {/* <Dialog
+        open={openDialog}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">Atenção</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Realmente deseja desativar este usuário?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="#008c3b">
+            Cancelar
+          </Button>
+          <Button onClick={handleClose} color="#ff0000">
+            Desativar
+          </Button>
+        </DialogActions>
+      </Dialog> */}
     </Container>
   );
 }
